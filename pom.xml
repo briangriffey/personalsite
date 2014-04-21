@@ -10,8 +10,10 @@
 
     <properties>
         <appengine.app.version>1</appengine.app.version>
-        <appengine.target.version>1.7.4</appengine.target.version>
+        <appengine.target.version>1.8.0</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<appengine.email>brian@briangriffey.com</appengine.email>
+		<appengine.passin>true</appengine.passin>
     </properties>
 
     <dependencies>
@@ -91,6 +93,9 @@
                 <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>${appengine.target.version}</version>
+			 	<configuration>
+			      <oauth2>false</oauth2>
+			    </configuration>
             </plugin>
         </plugins>
     </build>

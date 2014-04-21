@@ -38,7 +38,7 @@
 }
 
 body {
-	background:url(http://i.imgur.com/xX5dlkP.gif) no-repeat center center fixed;
+	background:url(http://i.imgur.com/QPHPeGj.gif) no-repeat center center fixed;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
 	-ms-background-size:cover;
@@ -65,18 +65,18 @@ a {
 	position: absolute;
 	top: 30%;
 	left: 5%;
-	background: rgba(0, 0, 0, .1)
+	background: rgba(0, 0, 0, .15)
 }
 
 .briantext {
 	color: white;
-	font-family: robotolight;
+	font-family: robotothin;
 	#text-shadow: 1px 1px #000000;
 }
 
 .name {
 	font-size: 5em;
-	font-weight: bold;
+	
 }
 
 .description {
