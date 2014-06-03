@@ -4,26 +4,35 @@
   <meta charset="utf-8">
   <title>My AngularJS AngularJS + RequireJS App</title>
   <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
+  <link rel='stylesheet' href="css/simple-sidebar.css">
 </head>
 <body>
-    <div class="row">
-      
-      <div class="col-md-2 sidebar" ng-controller="NavController">
-          <img src="{{profileImage}}" class="profile_image center-block" />
-          <ul class="center-block">
-            <li ng-repeat="link in links">
-              <a href="{{link.link}}">{{link.name}}</a>
-            </li>
-          </ul>
-      </div>
 
+  <div id="wrapper">
+    <div id="sidebar-wrapper" ng-controller="NavController">
+        <img src="{{profileImage}}" class="profile_image center-block" />
 
-      <div class="col-md-10">
-        <div data-ng-view  class="container">
+        <div class="sidebar-brand">
+          Brian Griffey
         </div>
-      </div>
+        <div class="sidebar-brand">
+          <a href="http://www.twitter.com/briangriffey"><i class="fa fa-twitter"></i></a>
+          <a href="http://www.github.com/briangriffey"><i class="fa fa-github"></i></a>
+          <a href="https://www.flickr.com/photos/95914862@N05/"><i class="fa fa-flickr"></i></a>
+        </div>
+        <ul class="sidebar-nav">
+          <li ng-repeat="link in links">
+            <a href="{{link.link}}"><span class="glyphicon {{link.icon}}"> {{link.name}}</span></a>
+          </li>
+        </ul>
     </div>
+
+    <div id="page-content-wrapper">
+      <div class="page-content inset" data-ng-view>
+      </div>
+  </div>
 
   <script src="lib/requirejs/require.js" data-main="js/main.js"></script>
 </body>

@@ -1,6 +1,7 @@
 html {
   height: 100%;
 }
+
 body {
   background: #F2F2EF;
   color: #517370;
@@ -13,15 +14,9 @@ body {
 	border-radius: 50px;
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
-  margin-bottom:50px;
 }
 
-.sidebar {
-  background: #13A3A5;
-  min-height: 100%;
-  padding-top: 50px;
-}
+hr{
+  border-top: 1px solid #517370;
 
-.sidebar a{
-  color: #F2F2EF;
 }

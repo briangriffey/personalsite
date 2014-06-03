@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-12">
+    <p>
+    Hi, my name is <b>Brian Griffey</b> and I've been an Android developer for the last 6 years. I've worked at a range of places: from the first Android app <a href="http://www.shopsavvy.com">ShopSavvy</a> to giants like <a href="http://www.evernote.com">Evernote</a>. I currently work for <a href="http://www.homeaway.com">HomeAway</a>, trying to make your vacations better.
+  </p>
+  <hr>
+    <h3>Things I've built</h3>
+
+    <div ng-repeat="product in products">
+
+      <div ng-if="product.note" >
+        <a href="{{product.link}}">{{product.name}}</a> {{product.note}}
+      </div>
+      <div ng-if="!product.note" >
+        <a href="{{product.link}}">{{product.name}}</a>
+      </div>
+    </div>
+  </div>
+</div>

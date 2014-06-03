@@ -2,13 +2,13 @@ define(['./app'], function(app){
   'use strict';
   return app.config(['$routeProvider', function($routeProvider){
     $routeProvider.when('/', {
-        templateUrl: 'partials/main.html',
-        controller: 'MainController'
+        templateUrl: 'partials/products.html',
+        controller: 'ProductsController'
     });
 
-    $routeProvider.when('/nav', {
-      templateUrl: 'partials/nav.html',
-      controller: 'NavController'
+    $routeProvider.when('/products', {
+      templateUrl: 'partials/products.html',
+      controller: 'ProductsController'
     });
   }]);
 });

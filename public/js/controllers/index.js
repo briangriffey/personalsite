@@ -1,4 +1,5 @@
 define([
   './NavController',
-  './MainController'
+  './MainController',
+  './ProductsController'
   ], function() {})
