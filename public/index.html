@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>My AngularJS AngularJS + RequireJS App</title>
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="row">
+      
+      <div class="col-md-2 sidebar" ng-controller="NavController">
+          <img src="{{profileImage}}" class="profile_image center-block" />
+          <ul class="center-block">
+            <li ng-repeat="link in links">
+              <a href="{{link.link}}">{{link.name}}</a>
+            </li>
+          </ul>
+      </div>
+
+
+      <div class="col-md-10">
+        <div data-ng-view  class="container">
+        </div>
+      </div>
+    </div>
+
+  <script src="lib/requirejs/require.js" data-main="js/main.js"></script>
+</body>
+</html>

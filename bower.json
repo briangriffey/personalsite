@@ -1,0 +1,16 @@
+{
+  "name": "personsite",
+  "version": "1.0.0",
+  "main": "path/to/main.css",
+  "ignore": [
+     "**/.*",
+     "libs"
+  ],
+  "dependencies": {
+    "angular": "latest",
+    "angular-route": "latest",
+    "requirejs": "latest",
+    "requirejs-domready": "latest",
+    "bootstrap": "latest"
+  }
+}
