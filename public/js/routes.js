@@ -10,5 +10,11 @@ define(['./app'], function(app){
       templateUrl: 'partials/products.html',
       controller: 'ProductsController'
     });
+
+    $routeProvider.when('/blog', {
+      templateUrl: 'partials/blogs.html',
+      controller: 'BlogPostController'
+    });
+
   }]);
 });
