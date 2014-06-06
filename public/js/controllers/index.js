@@ -2,5 +2,6 @@ define([
   './NavController',
   './MainController',
   './ProductsController',
-  './BlogPostController'
+  './BlogsController',
+  './BlogController'
   ], function() {});

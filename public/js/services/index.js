@@ -1,1 +1,3 @@
-define(['./BlogService'], function(){});
+define(['./BlogService',
+'./BlogPostService'
+], function(){});

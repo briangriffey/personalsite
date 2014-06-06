@@ -13,7 +13,12 @@ define(['./app'], function(app){
 
     $routeProvider.when('/blog', {
       templateUrl: 'partials/blogs.html',
-      controller: 'BlogPostController'
+      controller: 'BlogsController'
+    });
+
+    $routeProvider.when('/blog/:blogId', {
+      templateUrl: 'partials/blog.html',
+      controller: 'BlogController'
     });
 
   }]);

@@ -1,7 +1,7 @@
 define(['./module'],
   function(controllers){
-    controllers.controller('BlogPostController',["$scope", "$sce", "Blog", function($scope, $sce, Blog){
-        $scope.blogs = Blog.query();
+    controllers.controller('BlogsController',["$scope", "$sce", "Blogs", function($scope, $sce, Blogs){
+        $scope.blogs = Blogs.query();
 
         $scope.to_trusted = function(html_code) {
             return $sce.trustAsHtml(html_code);
