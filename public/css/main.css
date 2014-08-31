@@ -18,5 +18,10 @@ body {
 
 hr{
   border-top: 1px solid #517370;
+}
 
+.divider {
+  width:100%;
+  height: 3px;
+  background: #13A3A5;
 }

@@ -139,3 +139,99 @@ There we go, easy as pie to display data that we got over the network.
 <p>
 That's it for now, I'm going on vacation so watch for part 2 next week that will cover interacting with UI elements, and state management pieces of our applications.
 </p>"})
+
+BlogPost.create({content: "<h1>No Fragments, RichViews</h1>
+<h5>Android Development at HomeAway part 2</h5>
+<p>
+Sorry for the long delay in writing this. I've found it quite hard to articulate my thoughts and layout a coherent article, so I'm taking the continuous release approach. Release early, release often.
+</p>
+
+<h3>Saving state</h3>
+<p>So where do we save all of our state? UI state is easy. If you are using standard Android widgets, then there's nothing for you to do. Anything that extends a standard Android widget already has its onSaveInstanceState and onRestoreInstanceState filled out. Android will even restore your views just the way they were when your Activity is created and destroyed.  That's why when you rotate your phone your UI doesn't change</p>
+
+<p>
+  So what about non-UI state? Where do we save all of our data that we fetched from the server, or track our requests that are mid-flight when our Activity is created or destroyed? The answer is nowhere near anything with a lifecycle. We use <a href=\"http://square.github.io/dagger/\">Dagger</a>, a dependency injection framework, to build a set of \"Manager\" objects that are free of activity lifecycles and handle the fetching, storing, and caching of data that we get from our servers.  Dagger injects our activities with our \"manager\" objects they can use to fetch data. Here's a simple version of how we might setup a system like this.
+</p>
+
+<h3>Code snippets</h3>
+<pre>
+  //class for fetching owner data
+  public class OwnerManager {
+    private DiskLruCache mDataCache;
+
+    //skipped code that sets up the cache, constructor, etc
+
+    public void getPropertyList(String user, final Response.Listener<PropertyList> listener, final ErrorListener errorListener) {
+      //have we fetched this data before? Yes, sweet return it
+      if(isCached(property)) {
+        PropertyList list = getCached(user);
+        listener.onResponse(list);
+      } else {
+        //go get stuff from the network asynchronously, cache it, and return to the listener
+        getFromNetwork(user, new Response.Listener<PropertyList>() {
+          public void onResponse(PropertyList list) {
+            //pass back a non-modifiable property list to the user
+            // must use the ownermanager to modify data
+            PropertyList nonModifiableLIst = createNonModifiable(list);
+            listener.onResponse(nonModifiableLIst);
+            saveDataToCache(list);
+          }
+        }, new ErrorListener() {
+          public void onError(Error error) {
+            //do some stuff with this error
+            errorListener.onError(error);
+          }
+        });
+      }
+    }
+    //so much other stuff
+  }
+</pre>
+
+<pre>
+  //dagger module that will create one ownermanger for the entire application
+  @Module(injects = {ListPropertyActivity.class})
+  public class HAModule {
+    @Provides
+    @Singleton
+    public OwnerManager getOwnerManager() {
+      return new OwnerManager();
+    }
+  }
+</pre>
+
+<pre>
+  public class ListPropertyActivity extends ListActivity {
+
+    @Inject OwnerManager ownerManager;
+
+    public void onCreate(Bundle savedInstanceState) {
+      HomeAwayApplication app = (HomeAwayApplication)getApplicationContext();
+      app.inject(this);
+
+      String user = getIntent().getStringExtra(\"user\");
+
+      //Rotate all you want, we just get the data from our ownermanager
+      ownerManager.getPropertyList(user, propertyListener, errorListener);
+    }
+
+    private Response.Listener<PropertyList> propertyListListener = new LifecycleAwareListener<PropertyList>(this) {
+      public void onResponse(PropertyList list) {
+        getListView().setAdapter(new GreatAdapter(list));
+      }
+    }
+
+    private ErrorListener errorListener = new LifecycleAwareErrorListener(this) {
+      public void onError(Error error) {
+        //wa waaaaaa
+        showErrorView();
+      }
+    }
+  }
+</pre>
+
+<p>
+  As you can see above, our OwnerManager is able to handle data as it sees fit, free from the shackles of lifecycle events. When our activity is created, we don't really care whether it's from some saved state or not. We simply ask the OwnerManager for the data, and we'll get a callback when it's available, or if there was an error.  The OwnerManager is the source of truth for owner data, no need to hold (mostly) anything in the activity.
+<p>
+  Having stand alone objects control our data fetching and storage gives us a lot of flexibility inside of our application. We are free to use more common design patterns and libraries rather than being tied to something android specific.  It also allows us to reuse these objects in SyncAdapters to easily add sync capability to our applications. I'll cover that next post
+</p>"})
