@@ -2,7 +2,10 @@ class BlogsController < ApplicationController
 
   def index
     @posts = BlogPost.order(created_at: :desc)
-    render json: @posts
+    respond_to do |format|
+      format.json {render json: @posts}
+      format.rss { render :layout => false }
+    end
   end
 
   def show

@@ -140,7 +140,7 @@ There we go, easy as pie to display data that we got over the network.
 That's it for now, I'm going on vacation so watch for part 2 next week that will cover interacting with UI elements, and state management pieces of our applications.
 </p>"})
 
-BlogPost.create({content: "<h1>No Fragments, RichViews</h1>
+BlogPost.create({content: "<h1>No Fragments, Rich Views</h1>
 <h5>Android Development at HomeAway part 2</h5>
 <p>
 Sorry for the long delay in writing this. I've found it quite hard to articulate my thoughts and layout a coherent article, so I'm taking the continuous release approach. Release early, release often.
@@ -164,11 +164,15 @@ Sorry for the long delay in writing this. I've found it quite hard to articulate
     public void getPropertyList(String user, final Response.Listener<PropertyList> listener, final ErrorListener errorListener) {
       //have we fetched this data before? Yes, sweet return it
       if(isCached(property)) {
+
         PropertyList list = getCached(user);
         listener.onResponse(list);
+
       } else {
+
         //go get stuff from the network asynchronously, cache it, and return to the listener
         getFromNetwork(user, new Response.Listener<PropertyList>() {
+
           public void onResponse(PropertyList list) {
             //pass back a non-modifiable property list to the user
             // must use the ownermanager to modify data
@@ -176,11 +180,14 @@ Sorry for the long delay in writing this. I've found it quite hard to articulate
             listener.onResponse(nonModifiableLIst);
             saveDataToCache(list);
           }
+
         }, new ErrorListener() {
+
           public void onError(Error error) {
             //do some stuff with this error
             errorListener.onError(error);
           }
+
         });
       }
     }
